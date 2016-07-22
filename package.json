@@ -1,0 +1,13 @@
+{
+  "name": "texteditor",
+  "version": "0.1.0",
+  "description": "Simple terminal-based editor",
+  "main": "src/ted.js",
+  "bin": {
+    "ted": "bin/ted"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "blessed": "^0.1.81"
+  }
+}
