@@ -22,16 +22,16 @@ Features
 
   * Read files
   * Write changes
-  * Show cursor
+  * Block-shaped cursor
   * Insert text at cursor position
   * Delete text on the left of the cursor
+  * Programatic editor API
 
 TODO
 ----
 
   * Remove text on the right of the cursor
   * Change cursor position
-  * Create an editor API: `write`, `read`, `pos`
 
 Roadmap
 -------

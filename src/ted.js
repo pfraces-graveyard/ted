@@ -7,28 +7,53 @@ var screen = blessed.screen({
   smartCSR: true
 });
 
-// workaround: pressing escape twice made the editor unresponsive
-screen.on('element key escape', function () {
-  process.exit(0);
-});
-
 var textarea = blessed.textarea({
   parent: screen,
   inputOnFocus: true
 }).focus();
 
-var ted = function (file) {
+var curfilepath = '';
+
+var read = function (file) {
+  curfilepath = file;
+
   fs.readFile(file, 'utf-8', function (err, content) {
-    if (err) { return; }
     textarea.setValue(content);
     screen.render();
   });
+};
 
-  textarea.key('C-s', function () {
-    fs.writeFile(file, this.getValue(), 'utf-8', function (err) {
-      if (err) { throw err; }
-    });
+var write = function (file, callback) {
+  fs.writeFile(file, textarea.getValue(), 'utf-8', function (err) {
+    if (err) { throw new Error(err); }
+    if (typeof callback === 'function') { callback(); }
   });
 };
 
-module.exports = ted;
+var save = function () {
+  write(curfilepath);
+};
+
+var exit = function () {
+  process.exit(0);
+};
+
+var saveAndExit = function () {
+  write(curfilepath, exit);
+}
+
+textarea.key('C-s', save);
+textarea.key('C-c', exit);
+
+// workaround: pressing escape twice makes the editor unresponsive
+textarea.key('escape', saveAndExit);
+
+module.exports = {
+  buffer: textarea,
+  path: curfilepath,
+  read: read,
+  write: write,
+  save: save,
+  exit: exit,
+  saveAndExit: saveAndExit
+};

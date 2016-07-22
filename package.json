@@ -1,6 +1,6 @@
 {
   "name": "texteditor",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Simple terminal-based editor",
   "main": "src/ted.js",
   "bin": {

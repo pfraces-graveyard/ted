@@ -1,8 +1,6 @@
 'use strict';
 
 var path = require('path');
-var ted = require('./ted');
-
 var argv = process.argv.slice(2);
 
 if (argv.length !== 1) {
@@ -10,5 +8,6 @@ if (argv.length !== 1) {
   process.exit(1);
 }
 
-ted(path.resolve(process.cwd(), argv[0]));
+var ted = require('./ted');
+ted.read(path.resolve(process.cwd(), argv[0]));
 
